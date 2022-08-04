@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const { talker } = require('./talker');
 const { talkerId } = require('./talkerId');
 const { login } = require('./login');
-// const { generateToken } = require('./crypto');
 
 const app = express();
 app.use(bodyParser.json());
