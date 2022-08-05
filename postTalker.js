@@ -13,7 +13,7 @@ const {
   rateValidation } = require('./middlewares');
 
 postTalker.use(
-  // tokenValidation,
+  tokenValidation,
   emailValidation,
   ageValidation,
   talkValidation,
@@ -37,6 +37,7 @@ postTalker.post('/talker', async (req, res) => {
 
   };
   talkers.push(newTalker);
+  await fs.writeFile(TALKERFILE, JSON.stringify(talkers));
 
   return res.status(201).json(newTalker);
 });
