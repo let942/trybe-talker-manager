@@ -20,7 +20,7 @@ login.post('/login', (req, res) => {
     return res.status(400).json({ message: 'O "password" deve ter pelo menos 6 caracteres' });
   }
 
-  return res.status(200).send({ token: generateToken() });
+  return res.status(200).json({ token: generateToken() });
 });
 
 module.exports = { login };
