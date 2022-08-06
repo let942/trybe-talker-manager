@@ -4,6 +4,7 @@ const { talker } = require('./talker');
 const { talkerId } = require('./talkerId');
 const { login } = require('./login');
 const { postTalker } = require('./postTalker');
+const { putTalkerId } = require('./putTalkerId');
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.get('/talker', talker);
 app.get('/talker/:id', talkerId);
 app.post('/login', login);
 app.post('/talker', postTalker);
+app.put('/talker/:id', putTalkerId);
 
 app.listen(PORT, () => {
   console.log('Online');
