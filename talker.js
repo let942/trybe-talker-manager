@@ -8,7 +8,6 @@ const TALKERFILE = 'talker.json';
 const talker = express.Router();
 
 talker.get('/talker', async (req, res) => {
-  // const newReturn = [];
 
   const fileTalker = await fs.readFile(TALKERFILE, 'utf8');
   const talkers = JSON.parse(fileTalker);
