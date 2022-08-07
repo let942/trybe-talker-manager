@@ -5,6 +5,7 @@ const { talkerId } = require('./talkerId');
 const { login } = require('./login');
 const { postTalker } = require('./postTalker');
 const { putTalkerId } = require('./putTalkerId');
+const { deleteTalkerId } = require('./deleteTalkerId');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,6 +23,7 @@ app.get('/talker/:id', talkerId);
 app.post('/login', login);
 app.post('/talker', postTalker);
 app.put('/talker/:id', putTalkerId);
+app.delete('/talker/:id', deleteTalkerId);
 
 app.listen(PORT, () => {
   console.log('Online');
