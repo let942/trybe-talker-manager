@@ -6,6 +6,7 @@ const { login } = require('./login');
 const { postTalker } = require('./postTalker');
 const { putTalkerId } = require('./putTalkerId');
 const { deleteTalkerId } = require('./deleteTalkerId');
+const { search } = require('./search');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/talker', talker);
+app.get('/talker/search', search);
 app.get('/talker/:id', talkerId);
 app.post('/login', login);
 app.post('/talker', postTalker);
