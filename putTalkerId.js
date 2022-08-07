@@ -1,6 +1,6 @@
 const express = require('express');
 
-const postTalker = express.Router();
+const putTalkerId = express.Router();
 
 const fs = require('fs/promises');
 
@@ -12,7 +12,7 @@ const {
   watchedAtValidation,
   rateValidation } = require('./middlewares');
 
-postTalker.use(
+putTalkerId.use(
   tokenValidation,
   emailValidation,
   ageValidation,
@@ -23,22 +23,19 @@ postTalker.use(
 
 const TALKERFILE = 'talker.json';
 
-const putTalkerId = express.Router();
-
 putTalkerId.put('/talker/:id', async (req, res) => {
   const { id } = req.params;
-  const { name, age, talk } = req.body;
-  const { watchedAt, rate } = talk;
+  const newTalker = req.body;
   const fileTalker = await fs.readFile(TALKERFILE, 'utf8');
   const talkers = JSON.parse(fileTalker);
-  const especificTalker = talkers.findIndex((talker) => talker.id === Number(id));
-  const talker = talkers.find((person) => person.id === Number(id));
-  if (!talker) return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
-  talkers[especificTalker] = { ...talkers[especificTalker], name, age, talk: { watchedAt, rate } };
-  const newTalker = talkers[especificTalker];
-  await fs.writeFile(talkers);
-
-  res.status(200).json(newTalker);
+  const oldTalker = talkers.find((r) => r.id === Number(id));
+  if (!oldTalker) { return res(404).json('pessoa não encontrada'); }
+  oldTalker.name = newTalker.name;
+  oldTalker.age = newTalker.age;
+  oldTalker.talk.watchedAt = newTalker.talk.watchedAt;
+  oldTalker.talk.rate = newTalker.talk.rate;
+  await fs.writeFile(TALKERFILE, JSON.stringify(talkers));
+  return res.status(200).json(oldTalker);
 });
 
 module.exports = { putTalkerId }; 
